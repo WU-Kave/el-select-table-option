@@ -63,35 +63,18 @@ const props = defineProps({
   }
 })
 
-const selectValue = ref('')
+const selectValue = computed({
+  get: () => props.modelValue,
+  set: val => {
+    emit('update:modelValue', val)
+  }
+})
 
 // 实际 keyName
 // 优先使用 keyName，keyName 为空时，使用 valueName
 const keyNameCom = computed(() => {
   return props.keyName !== '' ? props.keyName : props.valueName
 })
-
-// 监听父组件传递过来的值变化
-watch(
-  () => props.modelValue,
-  (newValue, oldValue) => {
-    selectValue.value = newValue
-  },
-  {
-    immediate: true
-  }
-)
-
-// 监听输入框值变化
-watch(
-  selectValue,
-  (val, oldVal) => {
-    console.log('watch selectValue change, val, oldVal:', val, oldVal)
-    if (val != oldVal) {
-      emit('update:modelValue', selectValue.value)
-    }
-  }
-)
 
 const handleChange = val => {
   emit('change', val)
