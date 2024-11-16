@@ -1,5 +1,4 @@
 <template>
-  <p>child selectValue: {{ selectValue }}</p>
   <el-select 
     ref="inputRef" 
     v-model="selectValue"
@@ -10,6 +9,7 @@
     :filter-method="filterMethod" 
     @change="handleChange"
   >
+    <!-- 表头 -->
     <ul class="select-ul">
       <li v-for="column in columnConfig" :key="column.label">{{ column.label }}</li>
     </ul>
@@ -94,14 +94,20 @@ watch(
   },
 )
 // 筛选
-// const filterMethod = (queryString) => {
-//   showOptions.value =  props.options.filter(item => {
-//     const JSONStr = JSON.stringify(item)
-//     return JSONStr.includes(queryString) ? true : false
-//   })
-// }
 const filterMethod = queryString => {
-  showOptions.value = props.options.filter(item => (JSON.stringify(item).includes(queryString) ? true : false))
+  if (!queryString) {
+    showOptions.value = props.options;
+    return;
+  }
+
+  showOptions.value = props.options.filter(item => {
+    // 针对每个要过滤的列进行判断
+    return props.columnConfig.some(config => {
+      const propValue = item[config.prop];
+      // 将属性值转换为字符串并检查是否包含查询字符串
+      return propValue && propValue.toString().includes(queryString);
+    });
+  });
 }
 
 // 得到焦点
@@ -132,14 +138,6 @@ defineExpose({
     // margin: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-}
-li {
-  // border: 1px solid red;
-}
-.select-ul-data {
-  li {
-    // color: #000;
   }
 }
 .el-select-dropdown__item {

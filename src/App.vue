@@ -27,9 +27,9 @@ import {ref} from 'vue'
 const selectValue = ref('546')
 
 const options = ref([
-  {pId: "213", department: '古典风格号', createTime: '2024-12-23', place: '学校'},
-  {pId: "546", department: '都听好', createTime: '2024-12-23', place: '家里'},
-  {pId: "345", department: '按时到岗', createTime: '2024-12-23', place: '医院'}
+  {pId: "213", department: '古典风格号', createTime: '2024-10-23', place: '学校', updateTime: '2023-12-22'},
+  {pId: "546", department: '都听好', createTime: '2023-12-23', place: '家里', updateTime: '2021-12-22'},
+  {pId: "345", department: '按时到岗', createTime: '2012-12-10', place: '医院', updateTime: '2008-12-22'}
 ])
 
 const columnConfig = ref([
@@ -46,8 +46,8 @@ const handleChangeValue = () => {
 // 测试修改options
 const handleChangeOption = () => {
   options.value = [
-  {pId: "4536", department: 'dshddtyfh ', createTime: '2024-12-23', place: '学校'},
-  {pId: "3456", department: 'sdthdb ydfht ', createTime: '2024-12-23', place: '家里'},
+  {pId: "4536", department: 'dshddtyfh ', createTime: '2024-12-23', place: '学校', updateTime: '2008-12-22'},
+  {pId: "3456", department: 'sdthdb ydfht ', createTime: '2024-12-23', place: '家里', updateTime: '2019-03-22'},
 ]
 }
 const baseTableSelectRef = ref()
